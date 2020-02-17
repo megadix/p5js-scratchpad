@@ -6,6 +6,7 @@ const s = p => {
     const SPEED = 0.2;
     const STARS_WIDTH = 10;
     const STARS_WIDTH_2 = STARS_WIDTH / 2;
+    const MAX_RADIUS = 5;
 
     const stars = [];
 
@@ -34,23 +35,26 @@ const s = p => {
 
     function draw() {
         for (let i = 0; i < NUM_STARS; i++) {
-            p.stroke(stars[i].col, 100, 255 - p.map(stars[i].z, 1, MAX_DIST, 0, 255));
-            p.strokeWeight(p.map(MAX_DIST - stars[i].z, 1, MAX_DIST, 0, 4));
-            p.point(
-                stars[i].x / stars[i].z + SCREEN_W_2,
-                stars[i].y / stars[i].z + SCREEN_H_2
-            );
+            const x = stars[i].x / stars[i].z + SCREEN_W_2;
+            const y = stars[i].y / stars[i].z + SCREEN_H_2;
+            if (x < 0 || x > SCREEN_W || y < 0 || y > SCREEN_H) {
+                continue;
+            }
+
+            const bright = 255 - p.map(stars[i].z, 1, MAX_DIST, 0, 255);
+            p.stroke(stars[i].col, 50, bright);
+            p.point(x, y);
         }
     }
 
     p.setup = () => {
         p.createCanvas(SCREEN_W, SCREEN_H);
         for (let i = 0; i < NUM_STARS; i++) {
-            stars.push(randomStar(Math.random() * MAX_DIST));
+            const z = p.map(NUM_STARS - i, 0, NUM_STARS, 0, MAX_DIST);
+            stars.push(randomStar(z));
         }
         p.colorMode(p.HSB);
         p.noCursor();
-        p.fullscreen(true);
     };
 
     p.draw = () => {
