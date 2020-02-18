@@ -13,6 +13,11 @@ const s = p => {
     let SCREEN_W_2 = p.width / 2;
     let SCREEN_H_2 = p.height / 2;
 
+    let direction = {
+        x: 0,
+        y: 0
+    };
+
     function randomStar(z) {
         return {
             x: Math.random() * SCREEN_W * STARS_WIDTH - SCREEN_W * STARS_WIDTH_2,
@@ -35,8 +40,8 @@ const s = p => {
 
     function draw() {
         for (let i = 0; i < NUM_STARS; i++) {
-            const x = stars[i].x / stars[i].z + SCREEN_W_2;
-            const y = stars[i].y / stars[i].z + SCREEN_H_2;
+            const x = stars[i].x / stars[i].z + SCREEN_W_2 + direction.x;
+            const y = stars[i].y / stars[i].z + SCREEN_H_2 + direction.y;
             if (x < 0 || x > SCREEN_W || y < 0 || y > SCREEN_H) {
                 continue;
             }
@@ -63,6 +68,13 @@ const s = p => {
         update();
         draw();
     };
+
+    p.mouseMoved = () => {
+        const limitX = SCREEN_W / 10;
+        const limitY = SCREEN_H / 10;
+        direction.x = p.constrain(p.mouseX - SCREEN_W_2, -limitX, limitX);
+        direction.y = p.constrain(p.mouseY - SCREEN_H_2, -limitY, limitY);
+    }
 };
 
 let myp5 = new p5(s);
