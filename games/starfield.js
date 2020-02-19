@@ -2,21 +2,24 @@ const s = p => {
     let div;
 
     const NUM_STARS = 200;
-    const STARS_TRAIL = 10;
+    const MAX_TRAIL = 30;
     const MAX_DIST = 60;
-    const SPEED = 0.6;
     const STARS_WIDTH = 30000;
     const STARS_WIDTH_2 = STARS_WIDTH / 2;
+    const MIN_SPEED = 0.1;
+    const MAX_SPEED = 2;
 
     const stars = [];
+    let trailNum = 1;
 
-    let screenWidth_2;
-    let screenHeight_2;
-
+    let speed = MIN_SPEED;
     let direction = {
         x: 0,
         y: 0
     };
+
+    let screenWidth_2;
+    let screenHeight_2;
 
     function randomStar(z) {
         return {
@@ -28,19 +31,32 @@ const s = p => {
     }
 
     function update() {
-        screenWidth_2 = p.width / 2;
-        screenHeight_2 = p.height / 2;
+        if (p.keyIsPressed === true && p.keyCode === p.CONTROL) {
+            speed += 0.01;
+            trailNum = trailNum + 0.2;
+        }
+        else {
+            speed -= 0.02;
+            trailNum = trailNum - 0.4;
+        }
+
+        speed = p.constrain(speed, MIN_SPEED, MAX_SPEED);
+        trailNum = p.constrain(trailNum, 1, MAX_TRAIL);
+
         for (let i = 0; i < NUM_STARS; i++) {
-            stars[i].z -= SPEED;
+            stars[i].z -= speed;
             if (stars[i].z < 1) {
                 stars[i] = randomStar();
             }
         }
+        
+        screenWidth_2 = p.width / 2;
+        screenHeight_2 = p.height / 2;
     }
 
     function draw() {
         for (let i = 0; i < NUM_STARS; i++) {
-            for (let j = 0; j < STARS_TRAIL; j++) {
+            for (let j = 0; j < trailNum; j++) {
                 const z = stars[i].z + j / 6;
                 if (z < 0) {
                     return;
@@ -56,6 +72,11 @@ const s = p => {
                 p.point(x, y);
             }
         }
+
+        p.stroke(128);
+        p.fill(255);
+        p.text('Press CTRL for warp', 10, 10);
+        p.text('FPS: ' + Math.trunc(p.frameRate()), 10, 30);
     }
 
     p.setup = () => {
