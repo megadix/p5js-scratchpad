@@ -11,6 +11,9 @@ const s = p => {
 
     const stars = [];
     let trailNum = 1;
+    let fpsSum = 0;
+    let fpsNum = 0;
+    let lastFps = null;
 
     let speed = MIN_SPEED;
     let direction = {
@@ -26,7 +29,11 @@ const s = p => {
             x: Math.random() * STARS_WIDTH - STARS_WIDTH_2,
             y: Math.random() * STARS_WIDTH - STARS_WIDTH_2,
             z: z || MAX_DIST,
-            col: Math.random() * 255
+            col: {
+                r: Math.round(Math.random() * 155 + 140),
+                g: Math.round(Math.random() * 155 + 140),
+                b: Math.round(Math.random() * 155 + 140)
+            }
         }
     }
 
@@ -49,40 +56,61 @@ const s = p => {
                 stars[i] = randomStar();
             }
         }
-        
+
         screenWidth_2 = p.width / 2;
         screenHeight_2 = p.height / 2;
+
+        if (fpsNum === 30) {
+            lastFps = fpsSum / fpsNum;
+            fpsSum = 0;
+            fpsNum = 0;
+        }
+        else {
+            fpsSum += p.frameRate();
+            fpsNum++;
+        }
     }
 
     function draw() {
+        p.loadPixels();
+
         for (let i = 0; i < NUM_STARS; i++) {
             for (let j = 0; j < trailNum; j++) {
                 const z = stars[i].z + j / 6;
                 if (z < 0) {
                     return;
                 }
-                const x = stars[i].x / z + screenWidth_2 + direction.x;
-                const y = stars[i].y / z + screenHeight_2 + direction.y;
-                if (x < 0 || x > p.width || y < 0 || y > p.height) {
+                const x = Math.round(stars[i].x / z + screenWidth_2 + direction.x);
+                const y = Math.round(stars[i].y / z + screenHeight_2 + direction.y);
+                if (x < 0 || x >= p.width || y < 0 || y >= p.height) {
                     continue;
                 }
 
-                const bright = 255 - p.map(z, 1, MAX_DIST, 0, 255);
-                p.stroke(stars[i].col, 50, bright);
-                p.point(x, y);
+                const base = (y * p.width + x) * 4;
+
+                if (p.frameCount % 100 === 0) {
+                    console.log(`base = ${base}`);
+                }
+
+                p.pixels[base] = stars[i].col.r;
+                p.pixels[base + 1] = stars[i].col.g;
+                p.pixels[base + 2] = stars[i].col.b;
+                p.pixels[base + 3] = 255;
             }
         }
+
+        p.updatePixels();
 
         p.stroke(128);
         p.fill(255);
         p.text('Press CTRL for warp', 10, 10);
-        p.text('FPS: ' + Math.trunc(p.frameRate()), 10, 30);
+        p.text('FPS: ' + (lastFps ? Math.round(lastFps): ''), 10, 30);
     }
 
     p.setup = () => {
         div = p.canvas.parentElement;
         p.createCanvas(div.clientWidth, div.clientHeight);
-        p.colorMode(p.HSB);
+        p.pixelDensity(1);
         p.noCursor();
 
         for (let i = 0; i < NUM_STARS; i++) {
