@@ -2,9 +2,10 @@ const s = p => {
     let div;
 
     const NUM_STARS = 200;
-    const MAX_DIST = 30;
-    const SPEED = 0.2;
-    const STARS_WIDTH = 10000;
+    const STARS_TRAIL = 10;
+    const MAX_DIST = 60;
+    const SPEED = 0.6;
+    const STARS_WIDTH = 30000;
     const STARS_WIDTH_2 = STARS_WIDTH / 2;
 
     const stars = [];
@@ -39,15 +40,21 @@ const s = p => {
 
     function draw() {
         for (let i = 0; i < NUM_STARS; i++) {
-            const x = stars[i].x / stars[i].z + screenWidth_2 + direction.x;
-            const y = stars[i].y / stars[i].z + screenHeight_2 + direction.y;
-            if (x < 0 || x > p.width || y < 0 || y > p.height) {
-                continue;
-            }
+            for (let j = 0; j < STARS_TRAIL; j++) {
+                const z = stars[i].z + j / 6;
+                if (z < 0) {
+                    return;
+                }
+                const x = stars[i].x / z + screenWidth_2 + direction.x;
+                const y = stars[i].y / z + screenHeight_2 + direction.y;
+                if (x < 0 || x > p.width || y < 0 || y > p.height) {
+                    continue;
+                }
 
-            const bright = 255 - p.map(stars[i].z, 1, MAX_DIST, 0, 255);
-            p.stroke(stars[i].col, 50, bright);
-            p.point(x, y);
+                const bright = 255 - p.map(z, 1, MAX_DIST, 0, 255);
+                p.stroke(stars[i].col, 50, bright);
+                p.point(x, y);
+            }
         }
     }
 
@@ -70,9 +77,9 @@ const s = p => {
         draw();
     };
 
-    p.windowResized = function() {
-		p.resizeCanvas(div.clientWidth, div.clientHeight);
-	};
+    p.windowResized = function () {
+        p.resizeCanvas(div.clientWidth, div.clientHeight);
+    };
 
     p.mouseMoved = () => {
         const limitX = p.width / 10;
