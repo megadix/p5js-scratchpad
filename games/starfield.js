@@ -6,8 +6,12 @@ const s = p => {
     const MAX_DIST = 60;
     const STARS_WIDTH = 30000;
     const STARS_WIDTH_2 = STARS_WIDTH / 2;
+
     const MIN_SPEED = 0.1;
     const MAX_SPEED = 2;
+    const ACCEL = 1; // unit / second
+    const DECEL = 2; // unit / second
+    const TRAIL = 50;
 
     const stars = [];
     let trailNum = 1;
@@ -38,13 +42,15 @@ const s = p => {
     }
 
     function update() {
+        const frameRate = p.frameRate();
+
         if (p.keyIsPressed === true && p.keyCode === p.CONTROL) {
-            speed += 0.01;
-            trailNum = trailNum + 0.2;
+            speed += ACCEL / frameRate;
+            trailNum = trailNum + TRAIL * ACCEL / frameRate;
         }
         else {
-            speed -= 0.02;
-            trailNum = trailNum - 0.4;
+            speed -= DECEL / frameRate;
+            trailNum = trailNum - TRAIL * DECEL / frameRate;
         }
 
         speed = p.constrain(speed, MIN_SPEED, MAX_SPEED);
@@ -78,7 +84,7 @@ const s = p => {
             for (let j = 0; j < trailNum; j++) {
                 const z = stars[i].z + j / 6;
                 if (z < 0) {
-                    return;
+                    continue;
                 }
                 const x = Math.round(stars[i].x / z + screenWidth_2 + direction.x);
                 const y = Math.round(stars[i].y / z + screenHeight_2 + direction.y);
