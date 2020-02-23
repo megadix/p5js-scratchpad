@@ -8,7 +8,7 @@ const s = p => {
     const STARS_WIDTH_2 = STARS_WIDTH / 2;
 
     const MIN_SPEED = 0.1;
-    const MAX_SPEED = 2;
+    const MAX_SPEED = 5;
     const ACCEL = 1; // unit / second
     const DECEL = 2; // unit / second
     const TRAIL = 50;
@@ -28,17 +28,12 @@ const s = p => {
     let screenWidth_2;
     let screenHeight_2;
 
-    function randomStar(z) {
-        return {
-            x: Math.random() * STARS_WIDTH - STARS_WIDTH_2,
-            y: Math.random() * STARS_WIDTH - STARS_WIDTH_2,
-            z: z || MAX_DIST,
-            col: {
-                r: Math.round(Math.random() * 155 + 140),
-                g: Math.round(Math.random() * 155 + 140),
-                b: Math.round(Math.random() * 155 + 140)
-            }
-        }
+    function randomizeStar(star) {
+        star.x = Math.random() * STARS_WIDTH - STARS_WIDTH_2;
+        star.y = Math.random() * STARS_WIDTH - STARS_WIDTH_2;
+        star.col.r = Math.round(Math.random() * 155 + 140);
+        star.col.g = Math.round(Math.random() * 155 + 140);
+        star.col.b = Math.round(Math.random() * 155 + 140);
     }
 
     function update() {
@@ -57,9 +52,11 @@ const s = p => {
         trailNum = p.constrain(trailNum, 1, MAX_TRAIL);
 
         for (let i = 0; i < NUM_STARS; i++) {
-            stars[i].z -= speed;
-            if (stars[i].z < 1) {
-                stars[i] = randomStar();
+            const star = stars[i];
+            star.z -= speed;
+            if (star.z < 1) {
+                randomizeStar(stars[i]);
+                star.z = MAX_DIST;
             }
         }
 
@@ -94,10 +91,6 @@ const s = p => {
 
                 const base = (y * p.width + x) * 4;
 
-                if (p.frameCount % 100 === 0) {
-                    console.log(`base = ${base}`);
-                }
-
                 p.pixels[base] = stars[i].col.r;
                 p.pixels[base + 1] = stars[i].col.g;
                 p.pixels[base + 2] = stars[i].col.b;
@@ -110,7 +103,7 @@ const s = p => {
         p.stroke(128);
         p.fill(255);
         p.text('Press CTRL for warp', 10, 10);
-        p.text('FPS: ' + (lastFps ? Math.round(lastFps): ''), 10, 30);
+        p.text('FPS: ' + (lastFps ? Math.round(lastFps) : ''), 10, 30);
     }
 
     p.setup = () => {
@@ -120,8 +113,13 @@ const s = p => {
         p.noCursor();
 
         for (let i = 0; i < NUM_STARS; i++) {
-            const z = p.map(NUM_STARS - i, 0, NUM_STARS, 0, MAX_DIST);
-            stars.push(randomStar(z));
+            const star = {
+                x: null, y: null, z: null,
+                col: { r: null, g: null, b: null }
+            };
+            randomizeStar(star);
+            star.z = p.map(NUM_STARS - i, 0, NUM_STARS, 0, MAX_DIST);
+            stars.push(star);
         }
     };
 
