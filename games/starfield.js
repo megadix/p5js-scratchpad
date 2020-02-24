@@ -1,17 +1,19 @@
 const s = p => {
+    p.disableFriendlyErrors = true;
+
     let div;
 
-    const NUM_STARS = 200;
+    const NUM_STARS = 500;
     const MAX_TRAIL = 30;
-    const MAX_DIST = 60;
-    const STARS_WIDTH = 30000;
+    const MAX_DIST = 100;
+    const STARS_WIDTH = 100000;
     const STARS_WIDTH_2 = STARS_WIDTH / 2;
 
     const MIN_SPEED = 0.1;
-    const MAX_SPEED = 5;
-    const ACCEL = 1; // unit / second
-    const DECEL = 2; // unit / second
-    const TRAIL = 50;
+    const MAX_SPEED = 40;
+    const ACCEL = 1;
+    const DECEL = 2;
+    const TRAIL = 0.5;
 
     const stars = [];
     let trailNum = 1;
@@ -41,11 +43,11 @@ const s = p => {
 
         if (p.keyIsPressed === true && p.keyCode === p.CONTROL) {
             speed += ACCEL / frameRate;
-            trailNum = trailNum + TRAIL * ACCEL / frameRate;
+            trailNum += TRAIL * (MAX_SPEED - speed) / frameRate;
         }
         else {
             speed -= DECEL / frameRate;
-            trailNum = trailNum - TRAIL * DECEL / frameRate;
+            trailNum -= TRAIL * (MAX_SPEED - speed) / frameRate;
         }
 
         speed = p.constrain(speed, MIN_SPEED, MAX_SPEED);
@@ -55,7 +57,7 @@ const s = p => {
             const star = stars[i];
             star.z -= speed;
             if (star.z < 1) {
-                randomizeStar(stars[i]);
+                randomizeStar(star);
                 star.z = MAX_DIST;
             }
         }
@@ -79,21 +81,24 @@ const s = p => {
 
         for (let i = 0; i < NUM_STARS; i++) {
             for (let j = 0; j < trailNum; j++) {
-                const z = stars[i].z + j / 6;
+                const star = stars[i];
+                const z = star.z + j / 6;
                 if (z < 0) {
                     continue;
                 }
-                const x = Math.round(stars[i].x / z + screenWidth_2 + direction.x);
-                const y = Math.round(stars[i].y / z + screenHeight_2 + direction.y);
+                const x = Math.round(star.x / z + screenWidth_2 + direction.x);
+                const y = Math.round(star.y / z + screenHeight_2 + direction.y);
                 if (x < 0 || x >= p.width || y < 0 || y >= p.height) {
                     continue;
                 }
 
                 const base = (y * p.width + x) * 4;
 
-                p.pixels[base] = stars[i].col.r;
-                p.pixels[base + 1] = stars[i].col.g;
-                p.pixels[base + 2] = stars[i].col.b;
+                const darken = Math.pow(p.map(z, 1, MAX_DIST, 1, 3), 1.7);
+
+                p.pixels[base + 0] = star.col.r * 2 / darken;
+                p.pixels[base + 1] = star.col.g * 2 / darken;
+                p.pixels[base + 2] = star.col.b * 2 / darken;
                 p.pixels[base + 3] = 255;
             }
         }
