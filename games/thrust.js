@@ -77,8 +77,8 @@ const s = p => {
     p.stroke(128);
     p.fill(255);
     p.text(`thrust = ${ship.thrust.toFixed(1)}`, 10, 10);
-    p.text(`a[x, y] = [${ship.acc.x.toFixed(1)}, ${ship.acc.y.toFixed(1)}]`, 10, 30);
-    p.text(`v[x, y] = [${ship.vel.x.toFixed(1)}, ${ship.vel.y.toFixed(1)}]`, 10, 50);
+    p.text(`a[x, y] = [${(ship.acc.x * frameRate).toFixed(1)}, ${(ship.acc.y * frameRate).toFixed(1)}]`, 10, 30);
+    p.text(`v[x, y] = [${(ship.vel.x * frameRate).toFixed(1)}, ${(ship.vel.y * frameRate).toFixed(1)}]`, 10, 50);
   };
 
   function thDrawBackground() {
@@ -89,7 +89,7 @@ const s = p => {
 
   const SHIP_MASS = 1;
   const THRUST_STEP_UP = 2;
-  const THRUST_STEP_DOWN = 1;
+  const THRUST_STEP_DOWN = 0.4;
   const MAX_THRUST = 5;
 
   const GRAVITY = 1.625;
