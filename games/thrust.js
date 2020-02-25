@@ -45,28 +45,31 @@ const s = p => {
   };
 
   Ship.prototype.render = function () {
-    p.fill(127);
-    p.stroke(200);
     p.push();
     p.translate(this.pos.x, p.height - this.pos.y - 10);
     p.rotate(-this.theta + p.HALF_PI);
 
-    // ship
-    p.beginShape();
-    p.vertex(-10, 10);
-    p.vertex(10, 10);
-    p.vertex(0, -20);
-    p.endShape(p.CLOSE);
-
     // exhaust
     if (this.thrust > 0) {
-      p.fill(200);
+      p.strokeWeight(2);
+      p.stroke(100, 180, 150);
+      p.fill(100, 130, 255);
       p.beginShape();
       p.vertex(-5, 10);
       p.vertex(0, 10 + p.map(this.thrust, 0, MAX_THRUST, 0, 10));
       p.vertex(5, 10);
       p.endShape(p.CLOSE);
     }
+
+    // ship
+    p.strokeWeight(1);
+    p.fill(127);
+    p.stroke(200);
+    p.beginShape();
+    p.vertex(-10, 10);
+    p.vertex(10, 10);
+    p.vertex(0, -20);
+    p.endShape(p.CLOSE);
 
     p.pop();
 
@@ -85,7 +88,7 @@ const s = p => {
 
   const SHIP_MASS = 1;
   const THRUST_STEP_UP = 2;
-  const THRUST_STEP_DOWN = 0.4;
+  const THRUST_STEP_DOWN = 0.3;
   const MAX_THRUST = 5;
 
   const GRAVITY = 1.625;
