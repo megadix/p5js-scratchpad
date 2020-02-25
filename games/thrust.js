@@ -11,18 +11,14 @@ const s = p => {
   Ship.prototype.update = function () {
     let incThrust = false;
 
-    if (p.keyIsPressed === true) {
-      switch (p.keyCode) {
-        case p.LEFT_ARROW:
-          this.theta += 0.1;
-          break;
-        case p.RIGHT_ARROW:
-          this.theta -= 0.1;
-          break;
-        case p.UP_ARROW:
-          incThrust = true;
-          break;
-      }
+    if (p.keyIsDown(p.LEFT_ARROW)) {
+      this.theta += 0.1;
+    }
+    if (p.keyIsDown(p.RIGHT_ARROW)) {
+      this.theta -= 0.1;
+    }
+    if (p.keyIsDown(p.UP_ARROW)) {
+      incThrust = true;
     }
 
     this.thrust += incThrust ? THRUST_STEP_UP : -THRUST_STEP_DOWN;
