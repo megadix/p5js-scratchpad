@@ -6,7 +6,23 @@ const s = p => {
     this.pos = p.createVector(0, 0);
     this.acc = p.createVector(0, 0);
     this.vel = p.createVector(0, 0);
+
+    const filter = new p5.LowPass();
+    filter.freq(800);
+    this.noise = new p5.Noise();
+    this.noise.disconnect();
+    this.noise.connect(filter);
+    this.noise.amp(0);
+    this.noise.start();
+
+    this.env = new p5.Envelope();
+    this.env.setADSR(0.2, 0.1, 0.5, 0.1);
+    this.env.setRange(1, 0);
   }
+
+  Ship.prototype.thrustSound = function() {
+    this.env.play(this.noise);
+  };
 
   Ship.prototype.update = function () {
     let incThrust = false;
@@ -23,6 +39,10 @@ const s = p => {
 
     this.thrust += incThrust ? THRUST_STEP_UP : -THRUST_STEP_DOWN;
     this.thrust = p.constrain(this.thrust, 0, MAX_THRUST);
+
+    if (this.thrust > 0) {
+      this.thrustSound();
+    }
 
     this.acc.x = this.thrust * Math.cos(this.theta) / this.mass / frameRate;
     this.acc.y = (this.thrust * Math.sin(this.theta) / this.mass - this.mass * GRAVITY) / frameRate;
@@ -87,8 +107,8 @@ const s = p => {
   }
 
   const SHIP_MASS = 1;
-  const THRUST_STEP_UP = 2;
-  const THRUST_STEP_DOWN = 0.3;
+  const THRUST_STEP_UP = 0.3;
+  const THRUST_STEP_DOWN = 0.23;
   const MAX_THRUST = 5;
 
   const GRAVITY = 1.625;
