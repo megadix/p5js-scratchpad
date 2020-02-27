@@ -20,13 +20,11 @@ const s = p => {
     this.env.setRange(1, 0);
   }
 
-  Ship.prototype.thrustSound = function() {
+  Ship.prototype.thrustSound = function () {
     this.env.play(this.noise);
   };
 
   Ship.prototype.update = function () {
-    let incThrust = false;
-
     if (p.keyIsDown(p.LEFT_ARROW)) {
       this.theta += 0.1;
     }
@@ -34,10 +32,11 @@ const s = p => {
       this.theta -= 0.1;
     }
     if (p.keyIsDown(p.UP_ARROW)) {
-      incThrust = true;
+      this.thrust += THRUST_STEP_UP;
+    } else if (!p.keyIsDown(p.CONTROL) || p.keyIsDown(p.DOWN_ARROW)) {
+      this.thrust -= THRUST_STEP_DOWN;
     }
 
-    this.thrust += incThrust ? THRUST_STEP_UP : -THRUST_STEP_DOWN;
     this.thrust = p.constrain(this.thrust, 0, MAX_THRUST);
 
     if (this.thrust > 0) {
