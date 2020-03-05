@@ -4,13 +4,14 @@
 const s = p => {
   let div;
 
-  const X_MIN = -2.5;
-  const X_MAX = 1;
-  const Y_MIN = -1;
-  const Y_MAX = 1;
+  const X_MIN = -3;
+  const X_MAX = 1.5;
+  const Y_MIN = -1.3;
+  const Y_MAX = 1.3;
   const MAX_ITER = 16;
 
   const palette = [];
+  let buffer;
 
   function toScreenX(x) {
     return p.map(x, X_MIN, X_MAX, 0, p.width);
@@ -22,14 +23,14 @@ const s = p => {
 
   function _buildPalette() {
     p.colorMode(p.HSB, MAX_ITER + 1, 100, 100);
+    buffer.colorMode(p.HSB, MAX_ITER + 1, 100, 100);
     const color_scale = MAX_ITER / Math.log(MAX_ITER);
     for (let i = 0; i < MAX_ITER + 1; i++) {
       palette.push(Math.trunc(Math.log(i + 1) * color_scale));
     }
   }
 
-  function _drawBackground() {
-    p.strokeWeight(1);
+  function _drawAxes() {
     p.stroke(100);
 
     const scr_x0 = toScreenX(0);
@@ -50,15 +51,12 @@ const s = p => {
 
     let i = 0;
 
-    let scrx = toScreenX(re);
-    let scry = toScreenY(im);
+    let scrx0 = toScreenX(re);
+    let scry0 = toScreenY(im);
+    let scrx = scrx0;
+    let scry = scry0;
 
-    p.noFill();
-    p.beginShape();
     p.stroke(palette[0]);
-
-    p.vertex(scrx, scry);
-    p.rect(p.mouseX, p.mouseY, 5, 5);
 
     while (i < MAX_ITER && re_square + im_square < 4) {
       const re1 = re_square - im_square + x0;
@@ -70,27 +68,32 @@ const s = p => {
 
       i++;
 
-      scrx = toScreenX(re);
-      scry = toScreenY(im);
+      const scrx1 = toScreenX(re);
+      const scry1 = toScreenY(im);
 
       p.stroke(palette[i], 100, 100);
-      p.vertex(scrx, scry);
-      p.rect(scrx, scry, 5, 5);
+      p.line(scrx, scry, scrx1, scry1);
+      p.rect(scrx1 - 2, scry1 - 2, 4, 4);
+
+      scrx = scrx1;
+      scry = scry1;
     }
 
-    p.endShape();
-
+    buffer.stroke(palette[i], 100, 100);
+    buffer.point(p.mouseX, p.mouseY);
   }
 
   p.setup = () => {
     div = p.canvas.parentElement;
     p.createCanvas(div.clientWidth, div.clientHeight);
+    buffer = p.createGraphics(div.clientWidth, div.clientHeight);
     _buildPalette();
+    buffer.background(palette[0]);
   };
 
   p.draw = () => {
-    p.background(0);
-    _drawBackground();
+    p.image(buffer, 0, 0);
+    _drawAxes();
     _drawOrbit();
   };
 };
