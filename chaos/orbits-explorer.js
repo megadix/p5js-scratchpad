@@ -10,6 +10,9 @@ const s = p => {
   const Y_MAX = 1.3;
   const MAX_ITER = 16;
 
+  let SPREAD = 12;
+  let started = false;
+
   const palette = [];
   let buffer;
 
@@ -40,9 +43,9 @@ const s = p => {
     p.line(scr_x0, 0, scr_x0, p.height);
   }
 
-  function _drawOrbit() {
-    let x0 = p.map(p.mouseX, 0, p.width, X_MIN, X_MAX);
-    let y0 = p.map(p.mouseY, 0, p.height, Y_MIN, Y_MAX);
+  function _drawOrbit(startX, startY, drawPath) {
+    let x0 = p.map(startX, 0, p.width, X_MIN, X_MAX);
+    let y0 = p.map(startY, 0, p.height, Y_MIN, Y_MAX);
 
     let re = 0.0;
     let im = 0.0;
@@ -55,8 +58,6 @@ const s = p => {
     let scry0 = toScreenY(im);
     let scrx = scrx0;
     let scry = scry0;
-
-    p.stroke(palette[0]);
 
     while (i < MAX_ITER && re_square + im_square < 4) {
       const re1 = re_square - im_square + x0;
@@ -71,16 +72,40 @@ const s = p => {
       const scrx1 = toScreenX(re);
       const scry1 = toScreenY(im);
 
-      p.stroke(palette[i], 100, 100);
-      p.line(scrx, scry, scrx1, scry1);
-      p.rect(scrx1 - 2, scry1 - 2, 4, 4);
+      if (drawPath) {
+        p.stroke(palette[i], 100, 100);
+        p.line(scrx, scry, scrx1, scry1);
+        p.rect(scrx1 - 2, scry1 - 2, 4, 4);
+      }
 
       scrx = scrx1;
       scry = scry1;
     }
 
     buffer.stroke(palette[i], 100, 100);
-    buffer.point(p.mouseX, p.mouseY);
+    buffer.point(startX, startY);
+  }
+
+  function _drawRegion() {
+    if (!started) {
+      return;
+    }
+
+    const xi = p.mouseX - SPREAD;
+    const xf = p.mouseX + SPREAD;
+    const yi = p.mouseY - SPREAD;
+    const yf = p.mouseY + SPREAD;
+
+    const pixel = buffer.get(p.mouseX, p.mouseY);
+
+    for (let x = xi; x <= xf; x++) {
+      for (let y = yi; y <= yf; y++) {
+        if (!(x === p.mouseX && y === p.mouseY) && pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0) {
+          _drawOrbit(x, y, false);
+        }
+      }
+    }
+    _drawOrbit(p.mouseX, p.mouseY, true);
   }
 
   p.setup = () => {
@@ -94,8 +119,12 @@ const s = p => {
   p.draw = () => {
     p.image(buffer, 0, 0);
     _drawAxes();
-    _drawOrbit();
+    _drawRegion();
   };
+
+  p.mouseMoved = () => {
+    started = true;
+  }
 };
 
 let myp5 = new p5(s, 'canvas');
