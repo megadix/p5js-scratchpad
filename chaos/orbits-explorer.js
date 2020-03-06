@@ -4,10 +4,12 @@
 const s = p => {
   let div;
 
-  const X_MIN = -3;
-  const X_MAX = 1.5;
-  const Y_MIN = -1.3;
-  const Y_MAX = 1.3;
+  const X_MIN = -2.0;
+  const X_MAX = 1.0;
+
+  const Y_MIN = -2.0;
+  const Y_MAX = 2.0;
+
   const MAX_ITER = 16;
 
   let SPREAD = 12;
@@ -86,7 +88,7 @@ const s = p => {
     buffer.point(startX, startY);
   }
 
-  function _drawRegion() {
+  function _drawMandelbrot() {
     if (!started) {
       return;
     }
@@ -108,6 +110,13 @@ const s = p => {
     _drawOrbit(p.mouseX, p.mouseY, true);
   }
 
+  function _drawText() {
+    p.fill(200);
+    p.stroke(10);
+    p.text('Mandelbrot Orbits Explorer', 10, 20);
+    p.text('Press SPACEBAR to clean', 10, 40);
+  }
+
   p.setup = () => {
     div = p.canvas.parentElement;
     p.createCanvas(div.clientWidth, div.clientHeight);
@@ -119,11 +128,18 @@ const s = p => {
   p.draw = () => {
     p.image(buffer, 0, 0);
     _drawAxes();
-    _drawRegion();
+    _drawMandelbrot();
+    _drawText();
   };
 
   p.mouseMoved = () => {
     started = true;
+  };
+
+  p.keyTyped = () => {
+    if (p.key === ' ') {
+      buffer.background(palette[0]);
+    }
   }
 };
 
