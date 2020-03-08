@@ -8,22 +8,19 @@ Please don't take these examples too seriously, as I am by no means a P5.js expe
 
 You can either:
 
-- open individual .html files
-- (best option) serve files with a local http server
+1) open individual .html files
+2) (best option) serve files with a local http server
 
-Example:
+Example of 2) local http server using [serve - Static file serving and directory listing](https://github.com/zeit/serve):
 
-- install `serve`: a minimal and straightforward HTTP server written in Node
 ```
 npm install -g serve
-```
-- `cd` into sources root
-- start serving local files:
-```
+cd public
 serve
 ```
-- access pages:  
-  http://localhost:5000
+
+Then access pages at:  
+http://localhost:5000
 
 # Screenshots
 
@@ -39,9 +36,15 @@ serve
 
 ## Chaos
 
+Logistic map:
+
 ![Logistic Map](assets/logistic.png)
 
+Mandelbrot Set:
+
 ![Logistic Map](assets/mandelbrot.png)
+
+Mandelbrot Set Orbits Explorer:
 
 ![Logistic Map](assets/mandelbrot-orbit-explorer-1.png)
 
