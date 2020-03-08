@@ -4,6 +4,10 @@ A (semi)random collection of [P5.js](https://p5js.org/) scripts: exercises, expe
 
 Please don't take these examples too seriously, as I am by no means a P5.js expert.
 
+See demos at:
+
+https://p5js-scratchpad.web.app/
+
 # Quickstart
 
 You can either:
