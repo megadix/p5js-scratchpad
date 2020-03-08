@@ -130,7 +130,6 @@ const s = p => {
 
     p.draw = () => {
         p.background(0);
-        p.stroke(255);
         update();
         draw();
     };
