@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "p5js-scratchpad",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

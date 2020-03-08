@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "megadix-it"
+  },
+  "targets": {
+    "megadix-it": {
+      "hosting": {
+        "website": [
+          "p5js-scratchpad"
+        ]
+      }
+    }
+  }
+}

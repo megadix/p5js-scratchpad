@@ -3,7 +3,7 @@
 
 # misc
 .DS_Store
-npm-debug.log*
+-debug.log*
 
 # IDE
 /.idea
