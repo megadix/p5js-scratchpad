@@ -86,13 +86,13 @@ const s = p => {
                 if (z < 0) {
                     continue;
                 }
-                const x = Math.round(star.x / z + screenWidth_2 + direction.x);
-                const y = Math.round(star.y / z + screenHeight_2 + direction.y);
+                const x = star.x / z + screenWidth_2 + direction.x;
+                const y = star.y / z + screenHeight_2 + direction.y;
                 if (x < 0 || x >= p.width || y < 0 || y >= p.height) {
                     continue;
                 }
 
-                const base = (y * p.width + x) * 4;
+                const base = (Math.round(y) * p.width + Math.round(x)) * 4;
 
                 const darken = Math.pow(p.map(z, 1, MAX_DIST, 1, 3), 1.7);
 
@@ -141,6 +141,8 @@ const s = p => {
     p.mouseMoved = () => {
         const limitX = p.width / 10;
         const limitY = p.height / 10;
+
+
         direction.x = p.constrain(p.mouseX - screenWidth_2, -limitX, limitX);
         direction.y = p.constrain(p.mouseY - screenHeight_2, -limitY, limitY);
     }
