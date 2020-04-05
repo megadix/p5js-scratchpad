@@ -2,23 +2,38 @@ const SIZE_X = 8;
 const SIZE_Y = 8;
 const WALL_SIZE = 10;
 
-let maze;
+let mazes = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(100);
   noLoop();
 
-  maze = _createMaze(SIZE_X, SIZE_Y);
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
 }
 
 function draw() {
   background(100);
-  maze.draw();
+  mazes[0].draw();
+  push();
+  translate(width / 2, 0);
+  mazes[1].draw();
+  pop();
+  push();
+  translate(0, height / 2);
+  mazes[1].draw();
+  pop();
+  push();
+  translate(width / 2, height / 2);
+  mazes[1].draw();
+  pop();
 }
 
-function _createMaze(sizeX, sizeY) {
-  maze = new Maze(sizeX, sizeY);
+function _createMaze(sizeX, sizeY, width, height) {
+  const maze = new Maze(sizeX, sizeY, width, height);
 
   // Entrance is on the left side
   maze.entranceX = 0;
@@ -33,8 +48,8 @@ function _createMaze(sizeX, sizeY) {
    * Create unconnected nodes
    */
 
-  for (let x = 0; x < SIZE_X; x++) {
-    for (let y = 0; y < SIZE_Y; y++) {
+  for (let x = 0; x < maze.sizeX; x++) {
+    for (let y = 0; y < maze.sizeY; y++) {
       const node = new Node(x, y);
       maze.add(node);
       availableNodes.set(node.key(), node);
@@ -113,9 +128,11 @@ function _shuffle(input) {
 }
 
 class Maze {
-  constructor(sizeX, sizeY) {
+  constructor(sizeX, sizeY, width, height) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
+    this.width = width;
+    this.height = height;
     this.nodes = new Map();
     this.entranceX = null;
     this.entranceY = null;
@@ -140,11 +157,10 @@ class Maze {
   }
 
   draw() {
-    const self = this;
-    const minX = width / 20;
-    const maxX = width - minX;
-    const minY = height / 20;
-    const maxY = height - minY;
+    const minX = this.width / 20;
+    const maxX = this.width - minX;
+    const minY = this.height / 20;
+    const maxY = this.height - minY;
     const lenX = (maxX - minX) / this.sizeX;
     const lenY = (maxY - minY) / this.sizeY;
 
@@ -156,26 +172,26 @@ class Maze {
       translate(x, 0);
 
       for (let cell_y = 0; cell_y < this.sizeY; cell_y++) {
-        const node = maze.getNode(cell_x, cell_y);
+        const node = this.getNode(cell_x, cell_y);
         const y = map(cell_y, 0, this.sizeY, minY, maxY);
 
         push();
         translate(0, y);
 
         // top wall
-        if (!isAdjacent(node, cell_x, cell_y - 1)) {
+        if (!isAdjacent(this, node, cell_x, cell_y - 1)) {
           rect(0, 0, lenX, WALL_SIZE);
         }
         // right wall
-        if (this.getExit() !== node && !isAdjacent(node, cell_x + 1, cell_y)) {
+        if (this.getExit() !== node && !isAdjacent(this, node, cell_x + 1, cell_y)) {
           rect(lenX, 0, WALL_SIZE, lenY);
         }
         // bottom wall
-        if (!isAdjacent(node, cell_x, cell_y + 1)) {
+        if (!isAdjacent(this, node, cell_x, cell_y + 1)) {
           rect(0, lenY, lenX, WALL_SIZE);
         }
         // left wall
-        if (this.getEntrance() !== node && !isAdjacent(node, cell_x - 1, cell_y)) {
+        if (this.getEntrance() !== node && !isAdjacent(this, node, cell_x - 1, cell_y)) {
           rect(0, 0, WALL_SIZE, lenY);
         }
 
@@ -185,12 +201,12 @@ class Maze {
       pop();
     }
 
-    function isAdjacent(fromNode, x, y) {
+    function isAdjacent(maze, fromNode, x, y) {
       if (x < 0 || x >= maze.sizeX ||
-          y < 0 || y >= maze.sizeY) {
+        y < 0 || y >= maze.sizeY) {
         return false;
       }
-      const otherNode = self.getNode(x, y);
+      const otherNode = maze.getNode(x, y);
       return fromNode.isConnected(otherNode);
     }
   }
