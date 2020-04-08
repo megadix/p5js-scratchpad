@@ -2,21 +2,24 @@ const SIZE_X = 8;
 const SIZE_Y = 8;
 const WALL_SIZE = 10;
 
-let mazes = [];
+let mazes;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(100);
   noLoop();
 
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2, height / 2));
+  _buildMazes();
 }
 
 function draw() {
+  stroke(0);
+  noFill();
   background(100);
+  text("Click to generate new mazes", 10, 20);
+
+  translate(20, 20);
+
   mazes[0].draw();
   push();
   translate(width / 2, 0);
@@ -24,15 +27,29 @@ function draw() {
   pop();
   push();
   translate(0, height / 2);
-  mazes[1].draw();
+  mazes[2].draw();
   pop();
   push();
   translate(width / 2, height / 2);
-  mazes[1].draw();
+  mazes[3].draw();
   pop();
 }
 
+function mouseClicked() {
+  _buildMazes();
+  redraw();
+}
+
+function _buildMazes() {
+  mazes = [];
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
+}
+
 function _createMaze(sizeX, sizeY, width, height) {
+  randomSeed(Date.now());
   const maze = new Maze(sizeX, sizeY, width, height);
 
   // Entrance is on the left side
@@ -165,6 +182,7 @@ class Maze {
     const lenY = (maxY - minY) / this.sizeY;
 
     fill(255, 255, 255);
+    stroke(255);
 
     for (let cell_x = 0; cell_x < this.sizeX; cell_x++) {
       const x = map(cell_x, 0, this.sizeX, minX, maxX);
