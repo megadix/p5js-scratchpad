@@ -2,11 +2,6 @@
 // https://en.wikipedia.org/wiki/Mandelbrot_set#Computer_drawings
 
 const s = p => {
-  let div;
-
-  const SCREEN_W = 800;
-  const SCREEN_H = 600;
-
   const TARGET_FRAMERATE = 10;
 
   const X_MIN = -2.0;
@@ -27,20 +22,20 @@ const s = p => {
   let buffer;
 
   function _screenToRealX(x) {
-    return p.map(x, 0, SCREEN_W, X_MIN, X_MAX);
+    return p.map(x, 0, p.width, X_MIN, X_MAX);
   }
 
   function _screenToRealY(y) {
-    return p.map(y, 0, SCREEN_H, Y_MIN, Y_MAX);
+    return p.map(y, 0, p.height, Y_MIN, Y_MAX);
   }
 
   function _mandelbrot() {
-    if (screen_x > SCREEN_W) {
+    if (screen_x > p.width) {
       console.log('STOP');
       p.noLoop();
       return;
     }
-    if (screen_y > SCREEN_H) {
+    if (screen_y > p.height) {
       screen_x++;
       screen_y = 0;
     }
@@ -83,9 +78,8 @@ const s = p => {
   }
 
   p.setup = () => {
-    div = p.canvas.parentElement;
-    p.createCanvas(SCREEN_W, SCREEN_H);
-    buffer = p.createGraphics(div.clientWidth, div.clientHeight);
+    p.createCanvas(p.windowWidth, p.windowHeight);
+    buffer = p.createGraphics(p.windowWidth, p.windowHeight);
     _buildPalette();
     buffer.background(palette[0]);
   };

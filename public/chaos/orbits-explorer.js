@@ -2,8 +2,6 @@
 // https://en.wikipedia.org/wiki/Mandelbrot_set#Computer_drawings
 
 const s = p => {
-  let div;
-
   const X_MIN = -2.0;
   const X_MAX = 1.0;
 
@@ -118,9 +116,8 @@ const s = p => {
   }
 
   p.setup = () => {
-    div = p.canvas.parentElement;
-    p.createCanvas(div.clientWidth, div.clientHeight);
-    buffer = p.createGraphics(div.clientWidth, div.clientHeight);
+    p.createCanvas(p.windowWidth, p.windowHeight);
+    buffer = p.createGraphics(p.windowWidth, p.windowHeight);
     _buildPalette();
     buffer.background(palette[0]);
   };

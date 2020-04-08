@@ -112,8 +112,7 @@ const s = p => {
     }
 
     p.setup = () => {
-        div = p.canvas.parentElement;
-        p.createCanvas(div.clientWidth, div.clientHeight);
+        p.createCanvas(p.windowWidth, p.windowHeight);
         p.pixelDensity(1);
         p.noCursor();
 
