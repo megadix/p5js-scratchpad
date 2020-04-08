@@ -1,6 +1,4 @@
 const s = p => {
-  let div;
-
   let numCircles = 10;
   let thetaIncr = p.TWO_PI / 30;
 
@@ -13,16 +11,11 @@ const s = p => {
 
 
   p.setup = () => {
-    div = p.canvas.parentElement;
-    p.createCanvas(div.clientWidth, div.clientHeight);
+    p.createCanvas(p.windowWidth, p.windowHeight);
     // p.noLoop();
     noiseAmpl = p.width / 10;
     maxRadius = p.width / 3;
     innerRadiusReduce = noiseAmpl / 4;
-  };
-
-  p.windowResized = function () {
-    p.resizeCanvas(div.clientWidth, div.clientHeight);
   };
 
   p.draw = () => {
