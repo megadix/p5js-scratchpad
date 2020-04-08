@@ -18,7 +18,7 @@ function draw() {
   background(100);
   text("Click to generate new mazes", 10, 20);
 
-  translate(20, 20);
+  translate(20, 30);
 
   mazes[0].draw();
   push();
