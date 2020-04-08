@@ -1,6 +1,6 @@
-const SIZE_X = 8;
-const SIZE_Y = 8;
-const WALL_SIZE = 10;
+const SIZE_X = 20;
+const SIZE_Y = 20;
+const WALL_SIZE = 2;
 
 let mazes;
 
@@ -42,10 +42,10 @@ function mouseClicked() {
 
 function _buildMazes() {
   mazes = [];
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
-  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 3, height / 3));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2.5, height / 2.5));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2.5, height / 2.5));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2.5, height / 2.5));
+  mazes.push(_createMaze(SIZE_X, SIZE_Y, width / 2.5, height / 2.5));
 }
 
 function _createMaze(sizeX, sizeY, width, height) {
@@ -174,10 +174,10 @@ class Maze {
   }
 
   draw() {
-    const minX = this.width / 20;
-    const maxX = this.width - minX;
-    const minY = this.height / 20;
-    const maxY = this.height - minY;
+    const minX = 0;
+    const maxX = this.width;
+    const minY = 0;
+    const maxY = this.height;
     const lenX = (maxX - minX) / this.sizeX;
     const lenY = (maxY - minY) / this.sizeY;
 
