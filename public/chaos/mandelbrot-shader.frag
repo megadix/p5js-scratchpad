@@ -4,7 +4,9 @@ uniform vec2 u_resolution;
 uniform vec2 u_min;
 uniform vec2 u_max;
 
-const float max_iterations = 32.0;
+const float max_iterations = 16.0;
+
+uniform float u_max_iterations;
 
 vec2 map(vec2 p, vec2 from_start, vec2 from_end, vec2 to_start, vec2 to_end) {
     return (p - from_start) / (from_end - from_start) * (to_end - to_start) + to_start;
@@ -35,6 +37,9 @@ void main() {
 
         if (dot(re_square, im_square) > 4.0) {
             count = i;
+        }
+        if (i > u_max_iterations) {
+          break;
         }
     }
 

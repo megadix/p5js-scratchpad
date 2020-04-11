@@ -1,16 +1,16 @@
 const X_MIN = -2.0;
-const X_MAX = 1.0;
+const X_MAX = 0.0;
 const X_LEN = X_MAX - X_MIN;
 
-const Y_MIN = -2.0;
-const Y_MAX = 2.0;
+const Y_MIN = -1.0;
+const Y_MAX = 0.0;
 const Y_LEN = Y_MAX - Y_MIN;
 
-let SPREAD = 12;
+const MAX_ITERATIONS = 16;
 
 let mandelbrotShader;
 let halfWidth, halfHeight;
-let shading = true;
+let maxIter = 1;
 
 /* =============================
  * P5.js callbacks
@@ -21,7 +21,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth * 0.8, windowHeight * 0.8, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   noStroke();
 
   halfWidth = width / 2;
@@ -29,8 +29,7 @@ function setup() {
 }
 
 function draw() {
-  orbitControl();
-  background(0);
+  maxIter = map(mouseX, 0, width, 1, MAX_ITERATIONS);
   _drawMandelbrot();
 }
 
@@ -61,18 +60,11 @@ function fromScreenY(y) {
 }
 
 function _drawMandelbrot() {
-  if (shading) {
     shader(mandelbrotShader);
     mandelbrotShader.setUniform("u_resolution", [width, height]);
     mandelbrotShader.setUniform("u_min", [X_MIN, Y_MIN]);
     mandelbrotShader.setUniform("u_max", [X_MAX, Y_MAX]);
     mandelbrotShader.setUniform("u_point", [fromScreenX(), fromScreenY()]);
-  } else {
-    fill(100);
-  }
+    mandelbrotShader.setUniform("u_max_iterations", maxIter);
   rect(toGLScreenX(X_MIN), toGLScreenY(Y_MIN), toGLScreenX(X_LEN), toGLScreenY(Y_LEN));
-
-  if (shading) {
-    resetShader();
-  }
 }
