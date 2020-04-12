@@ -1,8 +1,8 @@
 const X_MIN = -2.0;
-const X_MAX = 0.0;
+const X_MAX = -0.5;
 const X_LEN = X_MAX - X_MIN;
 
-const Y_MIN = -1.0;
+const Y_MIN = -1.2;
 const Y_MAX = 0.0;
 const Y_LEN = Y_MAX - Y_MIN;
 
