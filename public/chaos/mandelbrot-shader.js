@@ -60,11 +60,10 @@ function fromScreenY(y) {
 }
 
 function _drawMandelbrot() {
-    shader(mandelbrotShader);
-    mandelbrotShader.setUniform("u_resolution", [width, height]);
-    mandelbrotShader.setUniform("u_min", [X_MIN, Y_MIN]);
-    mandelbrotShader.setUniform("u_max", [X_MAX, Y_MAX]);
-    mandelbrotShader.setUniform("u_point", [fromScreenX(), fromScreenY()]);
-    mandelbrotShader.setUniform("u_max_iterations", maxIter);
+  shader(mandelbrotShader);
+  mandelbrotShader.setUniform("u_resolution", [width, height]);
+  mandelbrotShader.setUniform("u_min", [X_MIN, Y_MIN]);
+  mandelbrotShader.setUniform("u_max", [X_MAX, Y_MAX]);
+  mandelbrotShader.setUniform("u_max_iterations", maxIter);
   rect(toGLScreenX(X_MIN), toGLScreenY(Y_MIN), toGLScreenX(X_LEN), toGLScreenY(Y_LEN));
 }
