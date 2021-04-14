@@ -1,0 +1,6 @@
+@import "./theme";
+@import "~bootstrap/scss/bootstrap";
+
+.breadcrumb a {
+  color: $gray-500;
+}
