@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from "react";
 import PropTypes from "prop-types";
 import p5 from 'p5';
 
-function Sketch({title, sketch, children}) {
+function Sketch({sketch}) {
   const myRef = useRef(React.createRef());
 
   useEffect(() => {
@@ -10,18 +10,12 @@ function Sketch({title, sketch, children}) {
   }, [sketch]);
 
   return (
-    <div>
-      <h3>{title}</h3>
-      {children}
-      <div ref={myRef} />
-    </div>
+    <div ref={myRef}/>
   );
 }
 
 Sketch.propTypes = {
-  title: PropTypes.string.isRequired,
-  sketch: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
+  sketch: PropTypes.func.isRequired
 };
 
 export default Sketch;
