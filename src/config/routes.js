@@ -6,6 +6,10 @@ import MazePage from "../sketches/creative/MazePage";
 import SketchesGamesPage from "../sketches/games/SketchesGamesPage";
 import SketchesChaosPage from "../sketches/chaos/SketchesChaosPage";
 import SketchesPhysicsPage from "../sketches/physics/SketchesPhysicsPage";
+import LogisticMapPage from "../sketches/chaos/LogisticMapPage";
+import MandelbrotSetPage from "../sketches/chaos/MandelbrotSetPage";
+import MandelbrotSetShaderPage from "../sketches/chaos/MandelbrotSetShaderPage";
+import MandelbrotOrbitsExplorerPage from "../sketches/chaos/MandelbrotOrbitsExplorerPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -40,6 +44,30 @@ const _routes = {
     exact: true,
     label: 'Chaos',
     component: SketchesChaosPage
+  },
+  '/sketches/chaos/logistic-map': {
+    path: '/sketches/chaos/logistic-map',
+    exact: true,
+    label: 'Logistic Map',
+    component: LogisticMapPage
+  },
+  '/sketches/chaos/mandelbrot': {
+    path: '/sketches/chaos/mandelbrot',
+    exact: true,
+    label: 'Mandelbrot Set',
+    component: MandelbrotSetPage
+  },
+  '/sketches/chaos/mandelbrot-shader': {
+    path: '/sketches/chaos/mandelbrot-shader',
+    exact: true,
+    label: 'Mandelbrot Set - Shader',
+    component: MandelbrotSetShaderPage
+  },
+  '/sketches/chaos/mandelbrot-orbits-explorer': {
+    path: '/sketches/chaos/mandelbrot-orbits-explorer',
+    exact: true,
+    label: 'Mandelbrot Set - Shader',
+    component: MandelbrotOrbitsExplorerPage
   },
   '/sketches/creative': {
     path: '/sketches/creative',

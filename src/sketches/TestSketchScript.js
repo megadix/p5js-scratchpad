@@ -1,4 +1,4 @@
-const TestSketch = (p) => {
+const TestSketchScript = (p) => {
 
   function onResize() {
     const container = p.canvas.parentNode;
@@ -23,4 +23,4 @@ const TestSketch = (p) => {
   };
 };
 
-export default TestSketch;
+export default TestSketchScript;

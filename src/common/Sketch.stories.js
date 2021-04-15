@@ -1,5 +1,5 @@
 import Sketch from "./Sketch";
-import TestSketch from "../sketches/TestSketch";
+import TestSketchScript from "../sketches/TestSketchScript";
 
 const SketchStories = {
   title: 'Common/Sketch',
@@ -14,7 +14,7 @@ const Template = (args) => {
 
 export const SampleSketch = Template.bind({});
 SampleSketch.args = {
-  sketch: TestSketch,
+  sketch: TestSketchScript,
   children: (
     <>
       <p>Sample Description paragraph 1</p>
