@@ -1,6 +1,6 @@
 const WobbleCirclesScript = p => {
-  const WIDTH = 640;
-  const HEIGHT = 480;
+  const WIDTH = 800;
+  const HEIGHT = 600;
 
   let numCircles = 10;
   let thetaIncr = p.TWO_PI / 30;
