@@ -1,5 +1,6 @@
 import {Route, Switch} from 'react-router-dom';
 import {routes} from "../config/routes";
+import Page404 from "../Page404";
 
 export default function MainContentRouter() {
   return (
@@ -11,6 +12,9 @@ export default function MainContentRouter() {
                render={render}
         />
       )}
+      <Route path="*">
+        <Page404 />
+      </Route>
     </Switch>
   );
 }
