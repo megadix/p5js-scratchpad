@@ -38,11 +38,12 @@ const NewtonGravitationScript = p => {
       if (name !== 'Sun') {
         maxMass = p.max(maxMass, mass);
       }
-      const theta = p.random(0, p.TWO_PI);
+      const theta = p.random(0, p.PI);
+
       return new Body(
         name, mass,
-        p.createVector(p.cos(theta) * dist, 0.0),
-        p.createVector(0.0, vely),
+        p.createVector(p.cos(theta) * dist, p.sin(theta) * dist),
+        p.createVector(p.cos(theta + p.HALF_PI) * vely, p.sin(theta + p.HALF_PI) * vely),
         p.createVector(0.0, 0.0),
         p.color(col)
       );
