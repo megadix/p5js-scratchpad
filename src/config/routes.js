@@ -11,6 +11,8 @@ import MandelbrotSetPage from "../sketches/chaos/MandelbrotSetPage";
 import MandelbrotSetShaderPage from "../sketches/chaos/MandelbrotSetShaderPage";
 import MandelbrotOrbitsExplorerPage from "../sketches/chaos/MandelbrotOrbitsExplorerPage";
 import AlienBrushPage from "../sketches/creative/AlienBrushPage";
+import StarfieldPage from "../sketches/games/StarfieldPage";
+import ThrustPage from "../sketches/games/ThrustPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -93,6 +95,18 @@ const _routes = {
     exact: true,
     label: 'Games',
     component: SketchesGamesPage
+  },
+  '/sketches/games/starfield': {
+    path: '/sketches/games/starfield',
+    exact: true,
+    label: 'Starfield',
+    component: StarfieldPage
+  },
+  '/sketches/games/thrust': {
+    path: '/sketches/games/thrust',
+    exact: true,
+    label: 'Thrust',
+    component: ThrustPage
   },
   '/sketches/physics': {
     path: '/sketches/physics',
