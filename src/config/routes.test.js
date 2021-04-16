@@ -26,5 +26,8 @@ describe('getPathComponents()', function () {
 
   it('nested paths', function () {
     doTest('/sketches/creative', ['Sketches', 'Creative']);
+    doTest('/sketches/creative/', ['Sketches', 'Creative']);
+    doTest('/sketches/creative/wobble-circles', ['Sketches', 'Creative', 'Wobble Circles']);
+    doTest('/sketches/creative/wobble-circles/', ['Sketches', 'Creative', 'Wobble Circles']);
   });
 });

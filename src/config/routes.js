@@ -18,6 +18,7 @@ import HangingBodiesPage from "../sketches/physics/HangingBodiesPage";
 import NormalFrictionPage from "../sketches/physics/NormalFrictionPage";
 import SpringPage from "../sketches/physics/SpringPage";
 import NewtonGravitationPage from "../sketches/physics/NewtonGravitationPage";
+import WobbleCirclesPage from "../sketches/creative/WobbleCirclesPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -82,6 +83,12 @@ const _routes = {
     exact: true,
     label: 'Creative',
     component: SketchesCreativePage
+  },
+  '/sketches/creative/wobble-circles': {
+    path: '/sketches/creative/wobble-circles',
+    exact: true,
+    label: 'Wobble Circles',
+    component: WobbleCirclesPage
   },
   '/sketches/creative/maze': {
     path: '/sketches/creative/maze',
