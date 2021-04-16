@@ -13,6 +13,11 @@ import MandelbrotOrbitsExplorerPage from "../sketches/chaos/MandelbrotOrbitsExpl
 import AlienBrushPage from "../sketches/creative/AlienBrushPage";
 import StarfieldPage from "../sketches/games/StarfieldPage";
 import ThrustPage from "../sketches/games/ThrustPage";
+import GravityPage from "../sketches/physics/GravityPage";
+import HangingBodiesPage from "../sketches/physics/HangingBodiesPage";
+import NormalFrictionPage from "../sketches/physics/NormalFrictionPage";
+import SpringPage from "../sketches/physics/SpringPage";
+import NewtonGravitationPage from "../sketches/physics/NewtonGravitationPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -113,6 +118,36 @@ const _routes = {
     exact: true,
     label: 'Physics',
     component: SketchesPhysicsPage
+  },
+  '/sketches/physics/gravity': {
+    path: '/sketches/physics/gravity',
+    exact: true,
+    label: 'Gravity',
+    component: GravityPage
+  },
+  '/sketches/physics/gravity_ropes': {
+    path: '/sketches/physics/gravity_ropes',
+    exact: true,
+    label: 'Hanging Bodies',
+    component: HangingBodiesPage
+  },
+  '/sketches/physics/normal_friction': {
+    path: '/sketches/physics/normal_friction',
+    exact: true,
+    label: 'Normal and Friction Forces',
+    component: NormalFrictionPage
+  },
+  '/sketches/physics/spring': {
+    path: '/sketches/physics/spring',
+    exact: true,
+    label: 'Spring',
+    component: SpringPage
+  },
+  '/sketches/physics/newton-gravitation': {
+    path: '/sketches/physics/newton-gravitation',
+    exact: true,
+    label: 'Newton Gravitation',
+    component: NewtonGravitationPage
   },
 };
 
