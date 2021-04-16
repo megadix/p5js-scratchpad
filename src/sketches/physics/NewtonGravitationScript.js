@@ -20,14 +20,17 @@ const NewtonGravitationScript = p => {
     }
   }
 
-  const SCREEN_W = 800;
-  const SCREEN_H = 600;
+  const SCREEN_W = 900;
+  const SCREEN_H = 700;
 
   const G = 6.674e-11
   const maxZoomIn = 70000000e3;
   const maxZoomOut = 7e12;
   let zoom = 5e12;
-  const dt = 10e4;
+
+  const minDt = 10e3;
+  const maxDt = 10e6;
+  let dt = 10e4;
 
   const bodies = {};
   let minMass = 3.3011e23;
@@ -92,6 +95,17 @@ const NewtonGravitationScript = p => {
     zoom = p.constrain(zoom, maxZoomIn, maxZoomOut)
   }
 
+  p.keyTyped = () => {
+    switch (p.key) {
+      case '+':
+        dt = p.constrain(dt * 2.0, minDt, maxDt);
+        break;
+      case '-':
+        dt = p.constrain(dt / 2.0, minDt, maxDt);
+        break;
+    }
+  };
+
   p.draw = () => {
     p.background(0);
 
@@ -110,12 +124,15 @@ const NewtonGravitationScript = p => {
       );
 
       p.circle(10, texty, radius);
-      p.textSize(9);
+      p.textStyle(p.NORMAL);
+      p.textSize(12);
       p.textAlign(p.LEFT, p.CENTER);
       p.text(body.name, 20, texty);
 
-      texty += 10;
+      texty += 20;
     });
+
+    p.text(`dt = ${p.round(dt, 2)}`, p.width - 80, 10);
 
     Object.values(bodies).forEach(body => body.update(dt));
 
