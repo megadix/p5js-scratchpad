@@ -20,8 +20,8 @@ const NewtonGravitationScript = p => {
     }
   }
 
-  const SCREEN_W = 900;
-  const SCREEN_H = 700;
+  const SCREEN_W = 800;
+  const SCREEN_H = 600;
 
   const G = 6.674e-11
   const maxZoomIn = 70000000e3;
@@ -30,13 +30,14 @@ const NewtonGravitationScript = p => {
 
   const minDt = 10e3;
   const maxDt = 10e6;
+  const defaultDt = 10e4;
   let dt = 10e4;
 
-  const bodies = {};
+  let bodies;
   let minMass = 3.3011e23;
   let maxMass = 0.0;
 
-  function initBodies() {
+  function initSimulation() {
     const newBody = (name, mass, dist, vely, col) => {
       if (name !== 'Sun') {
         maxMass = p.max(maxMass, mass);
@@ -51,6 +52,9 @@ const NewtonGravitationScript = p => {
         p.color(col)
       );
     }
+
+    bodies = {}
+    dt = defaultDt;
 
     bodies["Sun"] = newBody("Sun", 1.9885e30, 0.0, 0.0, '#ffff00');
     bodies["Mercury"] = newBody("Mercury", 3.3011e23, (69816900e3 + 46001200e3) / 2.0, 47.36e3, '#ff0000');
@@ -86,27 +90,56 @@ const NewtonGravitationScript = p => {
   }
 
   p.setup = () => {
+    p.noLoop();
     p.createCanvas(SCREEN_W, SCREEN_H);
-    initBodies();
+    initSimulation();
   }
 
   p.mouseWheel = (event) => {
     zoom *= (event.delta < 0) ? 0.9 : 1.1;
     zoom = p.constrain(zoom, maxZoomIn, maxZoomOut)
+    if (!p.isLooping()) {
+      p.redraw();
+    }
   }
+
+  p.keyPressed = () => {
+    switch (p.keyCode) {
+      case p.RIGHT_ARROW:
+        dt = p.constrain(dt * 2.0, minDt, maxDt);
+        break;
+      case p.LEFT_ARROW:
+        dt = p.constrain(dt / 2.0, minDt, maxDt);
+        break;
+      case p.ESCAPE:
+        p.noLoop();
+        initSimulation();
+        p.redraw();
+        break;
+      default:
+      // do nothing, but keeps linter happy
+    }
+  };
 
   p.keyTyped = () => {
     switch (p.key) {
-      case '+':
-        dt = p.constrain(dt * 2.0, minDt, maxDt);
+      case ' ':
+        if (p.isLooping()) {
+          p.noLoop();
+        } else {
+          p.loop();
+        }
         break;
-      case '-':
-        dt = p.constrain(dt / 2.0, minDt, maxDt);
-        break;
+      default:
+      // do nothing, but keeps linter happy
     }
   };
 
   p.draw = () => {
+    if (p.isLooping()) {
+      Object.values(bodies).forEach(body => body.update(dt));
+    }
+
     p.background(0);
 
     let texty = 10;
@@ -134,7 +167,9 @@ const NewtonGravitationScript = p => {
 
     p.text(`dt = ${p.round(dt, 2)}`, p.width - 80, 10);
 
-    Object.values(bodies).forEach(body => body.update(dt));
+    if (!p.isLooping()) {
+      p.text('(paused)', p.width - 80, 30);
+    }
 
     update();
   }

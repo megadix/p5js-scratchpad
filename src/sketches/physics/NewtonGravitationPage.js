@@ -6,11 +6,10 @@ export default function NewtonGravitationPage() {
     <>
       <p>Simulation of Solar System using Newton's Universal Gravitation Law</p>
       <ul>
-        <li>Scroll mouse to zoom in / out</li>
-        <li>
-          <code>+</code> and <code>-</code> to change <code>dt</code> (time interval) and see what happens when you
-          approximate... too much!
-        </li>
+        <li><code>SPACEBAR</code>: pause / run</li>
+        <li><code>SCROLL</code> mouse to zoom in / out</li>
+        <li><code>ARROW LEFT / RIGHT</code> to change value for <code>dt</code></li>
+        <li><code>ESC</code> restart simulation</li>
       </ul>
       <Sketch sketch={NewtonGravitationScript} />
     </>
