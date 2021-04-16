@@ -74,7 +74,7 @@ const _routes = {
   '/sketches/chaos/mandelbrot-orbits-explorer': {
     path: '/sketches/chaos/mandelbrot-orbits-explorer',
     exact: true,
-    label: 'Mandelbrot Set - Shader',
+    label: 'Mandelbrot Orbits Explorer',
     component: MandelbrotOrbitsExplorerPage
   },
   '/sketches/creative': {
