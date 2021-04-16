@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 export default function SketchesHomePage() {
   return (
-    <PageLayout title="Sketches">
+    <PageLayout title="Sketches" description="All p5.js sketches">
       <ul>
         <li><Link to='/sketches/chaos'>Chaos</Link></li>
         <li><Link to='/sketches/creative'>Creative</Link></li>

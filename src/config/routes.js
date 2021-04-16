@@ -147,13 +147,13 @@ const _routes = {
   '/sketches/physics/spring': {
     path: '/sketches/physics/spring',
     exact: true,
-    label: 'Spring',
+    label: 'Spring Forces',
     component: SpringPage
   },
   '/sketches/physics/newton-gravitation': {
     path: '/sketches/physics/newton-gravitation',
     exact: true,
-    label: 'Newton Gravitation',
+    label: 'Newtonian Solar System',
     component: NewtonGravitationPage
   },
 };
@@ -169,6 +169,9 @@ export function getPathComponents(path) {
   }
 
   const current = _routes[path];
+  if (!current) {
+    return null;
+  }
   const parentPath = path.substr(0, path.lastIndexOf('/'));
   return getPathComponents(parentPath).concat(current);
 }
