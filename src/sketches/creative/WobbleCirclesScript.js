@@ -1,4 +1,4 @@
-const WobbleCircles = p => {
+const WobbleCirclesScript = p => {
   const WIDTH = 640;
   const HEIGHT = 480;
 
@@ -61,4 +61,4 @@ const WobbleCircles = p => {
   };
 };
 
-export default WobbleCircles;
+export default WobbleCirclesScript;

@@ -10,6 +10,7 @@ import LogisticMapPage from "../sketches/chaos/LogisticMapPage";
 import MandelbrotSetPage from "../sketches/chaos/MandelbrotSetPage";
 import MandelbrotSetShaderPage from "../sketches/chaos/MandelbrotSetShaderPage";
 import MandelbrotOrbitsExplorerPage from "../sketches/chaos/MandelbrotOrbitsExplorerPage";
+import AlienBrushPage from "../sketches/creative/AlienBrushPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -80,6 +81,12 @@ const _routes = {
     exact: true,
     label: 'Maze',
     component: MazePage
+  },
+  '/sketches/creative/alien-brush': {
+    path: '/sketches/creative/alien-brush',
+    exact: true,
+    label: 'Alien Brush',
+    component: AlienBrushPage
   },
   '/sketches/games': {
     path: '/sketches/games',
