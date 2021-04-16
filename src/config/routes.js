@@ -157,6 +157,10 @@ export function getPathComponents(path) {
   if (!path || path.trim().length === 0) {
     return [];
   }
+  if (path.endsWith('/') && path.length > 1) {
+    path = path.substr(0, path.length - 1);
+  }
+
   const current = _routes[path];
   const parentPath = path.substr(0, path.lastIndexOf('/'));
   return getPathComponents(parentPath).concat(current);

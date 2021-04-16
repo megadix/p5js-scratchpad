@@ -2,7 +2,9 @@ import {getPathComponents} from "./routes";
 
 describe('getPathComponents()', function () {
   const doTest = (path, expectedLabels) => {
-    expect(getPathComponents(path).map(comp => comp.label)).toEqual(expectedLabels);
+    const result = getPathComponents(path);
+    expect(result.length).toEqual(expectedLabels.length);
+    expect(result.map(comp => comp.label)).toEqual(expectedLabels);
   };
 
   it('empty / blank / null / undefined', function () {
@@ -19,6 +21,7 @@ describe('getPathComponents()', function () {
 
   it('simple paths', function () {
     doTest('/about', ['About']);
+    doTest('/about/', ['About']);
   });
 
   it('nested paths', function () {
