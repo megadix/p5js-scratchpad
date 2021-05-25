@@ -12,6 +12,7 @@ export default function SketchesPhysicsPage() {
         <li><Link to="/sketches/physics/normal_friction">Normal and Friction Forces</Link></li>
         <li><Link to="/sketches/physics/spring">Spring</Link></li>
         <li><Link to="/sketches/physics/newton-gravitation">Newton Gravitation</Link></li>
+        <li><Link to="/sketches/physics/double-pendulum">Double Pendulum</Link></li>
       </ul>
     </PageLayout>
   );

@@ -19,6 +19,7 @@ import NormalFrictionPage from "../sketches/physics/NormalFrictionPage";
 import SpringPage from "../sketches/physics/SpringPage";
 import NewtonGravitationPage from "../sketches/physics/NewtonGravitationPage";
 import WobbleCirclesPage from "../sketches/creative/WobbleCirclesPage";
+import DoublePendulumPage from "../sketches/physics/DoublePendulumPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -155,6 +156,12 @@ const _routes = {
     exact: true,
     label: 'Newtonian Solar System',
     component: NewtonGravitationPage
+  },
+  '/sketches/physics/double-pendulum': {
+    path: '/sketches/physics/double-pendulum',
+    exact: true,
+    label: 'Double Pendulum',
+    component: DoublePendulumPage
   },
 };
 
