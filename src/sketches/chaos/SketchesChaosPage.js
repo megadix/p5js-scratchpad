@@ -10,6 +10,7 @@ export default function SketchesChaosPage() {
         <li><Link to="/sketches/chaos/mandelbrot">Mandelbrot Set</Link></li>
         <li><Link to="/sketches/chaos/mandelbrot-shader">Mandelbrot Set - Shader Version</Link></li>
         <li><Link to="/sketches/chaos/mandelbrot-orbits-explorer">Mandelbrot Set Orbits Explorer</Link></li>
+        <li><Link to="/sketches/chaos/double-pendulum-chaos">Double Pendulum Chaos</Link></li>
       </ul>
     </PageLayout>
   );

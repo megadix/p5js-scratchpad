@@ -21,7 +21,7 @@ const MandelbrotSetShaderScript = p => {
    * ============================= */
 
   p.preload = () => {
-    mandelbrotShader = p.loadShader('mandelbrot-shader.vert', 'mandelbrot-shader.frag');
+    mandelbrotShader = p.loadShader('default.vert', 'mandelbrot-shader.frag');
   }
 
   p.setup = () => {

@@ -20,6 +20,7 @@ import SpringPage from "../sketches/physics/SpringPage";
 import NewtonGravitationPage from "../sketches/physics/NewtonGravitationPage";
 import WobbleCirclesPage from "../sketches/creative/WobbleCirclesPage";
 import DoublePendulumPage from "../sketches/physics/DoublePendulumPage";
+import DoublePendulumChaosPage from "../sketches/chaos/DoublePendulumChaosPage";
 
 export class Route {
   constructor(label, exact, component, render) {
@@ -78,6 +79,12 @@ const _routes = {
     exact: true,
     label: 'Mandelbrot Orbits Explorer',
     component: MandelbrotOrbitsExplorerPage
+  },
+  '/sketches/chaos/double-pendulum-chaos': {
+    path: '/sketches/chaos/double-pendulum-chaos',
+    exact: true,
+    label: 'Double Pendulum Chaos',
+    component: DoublePendulumChaosPage
   },
   '/sketches/creative': {
     path: '/sketches/creative',
