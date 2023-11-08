@@ -1,0 +1,11 @@
+<nav>
+  <ul>
+    <li><strong><a href="{{ SITEURL }}/" {% if page is not defined and article is not defined %} aria-current="page" {% endif %}>P5.js Scratchpad</a></strong></li>
+  </ul>
+  <ul>
+    {% for p in pages %}
+    <li><a href="{{ SITEURL }}/{{ p.url }}" {% if p == page %} aria-current="page" {% endif %}>{{ p.title }}</a></li>
+    {% endfor %}
+    <li><a href="https://github.com/megadix/p5js-scratchpad" target="_blank">GitHub</a></li>
+  </ul>
+</nav>

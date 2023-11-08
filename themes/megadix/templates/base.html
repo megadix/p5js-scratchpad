@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+<head>
+  {% block head %}
+  <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="sitemap" type="application/xml" href="{{ SITEURL }}/sitemap.xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  {% assets filters="cssmin", output="theme/css/style.min.css", "../static/css/style.css" %}
+  <link rel="stylesheet" href="{{SITEURL}}/{{ASSET_URL}}">
+  {% endassets %}
+  {% assets filters="cssmin", output="theme/css/styles-codehilite.min.css", "../static/css/styles-codehilite.css" %}
+  <link rel="stylesheet" href="{{SITEURL}}/{{ASSET_URL}}">
+  {% endassets %}
+  {% include 'feedlinks.html' %}
+  {% endblock head %}
+</head>
+<body id="index">
+<header class="container-fluid">
+  {% include 'navbar.html' %}
+</header>
+<main class="container-fluid">
+  <div class="grid">
+    <section id="main-content">
+      {% block content %}{% endblock content %}
+    </section>
+  </div>
+</main>
+</body>
+</html>

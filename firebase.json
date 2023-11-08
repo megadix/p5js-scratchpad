@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "p5js-scratchpad",
+    "public": "output",
+    "ignore": [
+      "firebase.json",
+      "**/.*"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/pages/404.html",
+        "type": 404
+      }
+    ]
+  }
+}

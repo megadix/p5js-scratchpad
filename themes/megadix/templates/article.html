@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% set date_diff_years = (CURRDATE - article.date.timestamp() * 1000) / (1000 * 60 * 60 * 24 * 365) %}
+{% block html_lang %}{{ article.lang }}{% endblock %}
+
+{% block title %}{{ SITENAME }} - {{ article.title|striptags  }}{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% if article.description %}
+<meta name="description" content="{{article.description}}" />
+{% endif %}
+
+{% for tag in article.tags %}
+<meta name="tags" content="{{tag}}" />
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<header>
+  <hgroup>
+    <h2>{{ article.title }}</h2>
+  </hgroup>
+</header>
+<div class="article-body">
+  {{ article.content }}
+</div><!-- /.entry-content -->
+{% endblock %}

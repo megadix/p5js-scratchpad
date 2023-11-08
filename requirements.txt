@@ -1,0 +1,6 @@
+pelican==4.8.0
+pelican-sitemap==1.1.0
+pelican-webassets==2.0.0
+cssmin==0.2.0
+Markdown==3.4.4
+jsx-lexer==2.0.1

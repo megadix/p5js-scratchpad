@@ -1,0 +1,18 @@
+# Python-related files
+__pycache__/
+*.pyc
+
+# Pelican output directory
+output/
+
+# Virtual environment (if you're using one)
+venv/
+
+# Pelican cache directory
+.cache/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+
+.firebase/
