@@ -7,9 +7,17 @@ header.container-fluid, main.container-fluid {
     margin-bottom: 0;
 }
 
-/*
- * Footer
- */
+#main-content header hgroup {
+    margin-bottom: 0;
+}
+#main-content nav[aria-label="breadcrumb"] {
+    font-size: var(--font-size-xsmall);
+    background-color: red;
+}
+
+    /*
+     * Footer
+     */
 body > footer {
     padding-top: var(--spacing);
     padding-bottom: var(--spacing);
