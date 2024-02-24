@@ -4,6 +4,7 @@ category: Sketches
 date: 2010-12-03 10:20
 ---
 
+- [Colorful Particles](/sketches/creative/colorful-particles.html)
 - [Wobble Circles](/sketches/creative/wobble-circles.html)
 - [Maze](/sketches/creative/maze.html)
 - [Alien Brush](/sketches/creative/alien-brush.html)
