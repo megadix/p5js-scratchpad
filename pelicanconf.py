@@ -7,7 +7,11 @@ THEME = 'themes/megadix'
 
 PATH = 'content'
 ARTICLE_PATHS = ['sketches']
-STATIC_PATHS = ['root', 'images', 'sketches']
+STATIC_PATHS = [
+    'root',
+    'images',
+    'sketches'
+]
 EXTRA_PATH_METADATA = {
     'root': {'path': ''}
 }

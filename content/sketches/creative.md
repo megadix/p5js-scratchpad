@@ -9,3 +9,4 @@ date: 2010-12-03 10:20
 - [Maze](/sketches/creative/maze.html)
 - [Alien Brush](/sketches/creative/alien-brush.html)
 - [City Flight](/sketches/creative/city-flight.html)
+- [Rotating Arms](/sketches/creative/rotating-arms.html)
