@@ -10,6 +10,7 @@ ARTICLE_PATHS = ['sketches']
 STATIC_PATHS = [
     'root',
     'images',
+    'lib',
     'sketches'
 ]
 EXTRA_PATH_METADATA = {
