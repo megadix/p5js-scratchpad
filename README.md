@@ -55,6 +55,16 @@ pip install -r requirements.txt
 
 ## Deploy to PROD
 
+### Prerequisites
+
+Install Firebase CLI:
+
+```
+npm install -g firebase-tools
+```
+
+### Deploy
+
 1) Generate pages in `/output` folder
 2) Deploy to Firebase
 
