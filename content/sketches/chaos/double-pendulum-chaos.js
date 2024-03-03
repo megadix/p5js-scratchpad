@@ -8,7 +8,7 @@ let instance = new p5(p => {
   let shader;
 
   p.preload = () => {
-    shader = p.loadShader('default.vert', 'double-pendulum-chaos.frag');
+    shader = p.loadShader('/lib/shaders/default.vert', 'double-pendulum-chaos.frag');
   }
 
   p.setup = () => {

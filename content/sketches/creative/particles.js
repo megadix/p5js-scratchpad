@@ -37,7 +37,7 @@ let instance = new p5(p => {
   let maxZ = 60;
 
   p.preload = () => {
-    theShader = p.loadShader('default.vert', 'Particles.frag');
+    theShader = p.loadShader('/lib/shaders/default.vert', '/lib/shaders/Particles.frag');
   };
 
   p.setup = () => {

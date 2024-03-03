@@ -21,7 +21,7 @@ let instance = new p5(p => {
    * ============================= */
 
   p.preload = () => {
-    mandelbrotShader = p.loadShader('default.vert', 'mandelbrot-shader.frag');
+    mandelbrotShader = p.loadShader('/lib/shaders/default.vert', 'mandelbrot-shader.frag');
   }
 
   p.setup = () => {
