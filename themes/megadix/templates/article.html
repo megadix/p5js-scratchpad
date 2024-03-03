@@ -21,6 +21,11 @@
 <header>
   <hgroup>
     <h2>{{ article.title }}</h2>
+    {% if article.sketchsrc %}
+    <small>
+      <a href="https://github.com/megadix/p5js-scratchpad/blob/{{ article.sketchsrc }}" title="View sketch source code">&raquo; Source code</a>
+    </small>
+    {% endif %}
   </hgroup>
 </header>
 <div class="article-body">
