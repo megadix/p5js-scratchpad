@@ -5,7 +5,7 @@ A collection of [P5.js](https://p5js.org/) scripts: exercises, experiments... fu
 Please don't take these examples too seriously, as I am by no means a P5.js expert.
 
 See demos at:
-https://p5js-scratchpad.web.app/
+https://p5.megadix.it/
 
 ## Screenshots
 
@@ -55,20 +55,12 @@ pip install -r requirements.txt
 
 ## Deploy to PROD
 
-### Prerequisites
-
-Install Firebase CLI:
-
-```
-npm install -g firebase-tools
-```
-
 ### Deploy
 
-1) Generate pages in `/output` folder
-2) Deploy to Firebase
+1) Generate pages in `/output` folder, PROD configuration:
 
 ```
 pelican -s publishconf.py
-firebase deploy --only hosting:p5js-scratchpad
 ```
+
+2) Copy files with FTP
