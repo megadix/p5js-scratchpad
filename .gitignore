@@ -4,6 +4,7 @@ __pycache__/
 
 # Pelican output directory
 output/
+releases/
 
 # Virtual environment (if you're using one)
 venv/
