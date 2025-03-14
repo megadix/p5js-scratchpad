@@ -26,7 +26,7 @@ let instance = new p5(p => {
 
   p.setup = () => {
     p.createCanvas(SCREEN_W, SCREEN_H, p.WEBGL);
-    reset();
+    resetParticles();
     p.shader(theShader);
   };
 
@@ -70,14 +70,14 @@ let instance = new p5(p => {
   };
 
   p.touchStarted = () => {
-    reset();
+    resetParticles();
   };
 
   p.mousePressed = () => {
-    reset();
+    resetParticles();
   };
 
-  function reset() {
+  function resetParticles() {
     halfWidth = p.width / 2;
     halfHeight = p.height / 2;
 
