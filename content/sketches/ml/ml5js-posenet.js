@@ -2,6 +2,7 @@ let instance = new p5(p => {
   let handPose;
   let video;
   let hands = [];
+  let poseNetInitialized = false;
 
   const SCREEN_W = 800;
   const SCREEN_H = 600;
@@ -42,6 +43,7 @@ let instance = new p5(p => {
   }
 
   p.setup = () => {
+    poseNetInitialized = false;
     p.createCanvas(SCREEN_W, SCREEN_H, p.WEBGL);
     // Create the webcam video and hide it
     video = p.createCapture(p.VIDEO);
@@ -52,6 +54,19 @@ let instance = new p5(p => {
 
     resetParticles();
     p.shader(theShader);
+
+    // Create loading overlay
+    loadingDiv = p.createDiv('Initializing. Show me your hand...');
+    loadingDiv.position(0, 0);
+    loadingDiv.style('width', '100%');
+    loadingDiv.style('height', '100%');
+    loadingDiv.style('display', 'flex');
+    loadingDiv.style('justify-content', 'center');
+    loadingDiv.style('align-items', 'center');
+    loadingDiv.style('position', 'absolute');
+    loadingDiv.style('color', 'white');
+    loadingDiv.style('background-color', 'rgba(0,0,0,0.9)');
+    loadingDiv.style('font-size', '24px');
   }
 
   // Callback function for when handPose outputs data
@@ -133,12 +148,17 @@ let instance = new p5(p => {
       throw new Error('Shader not loaded');
     }
 
-
     // Draw the webcam video
     //p.image(video, 0, 0, SCREEN_W, SCREEN_H);
     p.background(10);
 
-    if (!hands.length) {
+    if (hands.length > 0) {
+      if (poseNetInitialized === false) {
+        poseNetInitialized = true;
+        loadingDiv.remove();
+      }
+    }
+    else {
       return;
     }
 
